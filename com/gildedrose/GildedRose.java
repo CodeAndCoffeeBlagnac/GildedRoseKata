@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 class GildedRose {
+	
     private static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
 	private static final String AGED_BRIE = "Aged Brie";
 	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
@@ -12,7 +13,6 @@ class GildedRose {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-
         	decreaseSellInItem(i);
         	
         	if (AGED_BRIE.equals(items[i].name)) {
@@ -51,7 +51,7 @@ class GildedRose {
         }
     }
 
-	private void decreaseQualityItem(int i) {
+    private void decreaseQualityItem(int i) {
 		if (items[i].quality > 0) {
 		    if (!SULFURAS_HAND_OF_RAGNAROS.equals(items[i].name)) {
 		        items[i].quality = items[i].quality - 1;
