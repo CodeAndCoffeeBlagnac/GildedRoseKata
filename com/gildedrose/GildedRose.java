@@ -16,7 +16,7 @@ class GildedRose {
             if (SULFURAS_HAND_OF_RAGNAROS.equals(items[i].name)) {
 
             } else {
-                items[i].sellIn = items[i].sellIn - 1;
+                decreaseSellInItem(i);
 
                 if (BACKSTAGE_PASSES.equals(items[i].name)) {
                     increaseQualityItem(i);
@@ -28,28 +28,37 @@ class GildedRose {
                     if (items[i].sellIn < 6) {
                         increaseQualityItem(i);
                     }
+
+                    if (hasSellInDatePassed(i)) {
+                		items[i].quality = 0;
+                	}
+
                 }
 
                 if (AGED_BRIE.equals(items[i].name)) {
                     increaseQualityItem(i);
+                	if (hasSellInDatePassed(i)) {
+                		increaseQualityItem(i);
+                	}
+
                 } else if (!BACKSTAGE_PASSES.equals(items[i].name)) {
                     decreaseQualityItem(i);
+                  	if (hasSellInDatePassed(i)) {
+                		decreaseQualityItem(i);
+                	}
                 }
 
-                if (items[i].sellIn < 0) {
-                    if (BACKSTAGE_PASSES.equals(items[i].name)) {
-                        items[i].quality = 0;
-                    }
-
-                    if (AGED_BRIE.equals(items[i].name)) {
-                        increaseQualityItem(i);
-                    } else if (!BACKSTAGE_PASSES.equals(items[i].name)) {
-                        decreaseQualityItem(i);
-                    }
-                }
             }
         }
     }
+
+	private boolean hasSellInDatePassed(int i) {
+		return items[i].sellIn < 0;
+	}
+
+	private void decreaseSellInItem(int i) {
+		items[i].sellIn = items[i].sellIn - 1;
+	}
 
     private void decreaseQualityItem(int i) {
         if (items[i].quality > 0) {
